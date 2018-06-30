@@ -32,7 +32,9 @@ const generatePayload = ({name,cuit,alias,city}) => {
     f(ID_MERCHANT_INFORMATION_BOT, serialize([
       f(MERCHANT_INFORMATION_TEMPLATE_ID_GUID, GUID_MERCHAN_BANK),
     ])),
-    f(ID_CUIT, cuit),
+    f(ID_CUIT, serialize([
+      f(MERCHANT_INFORMATION_TEMPLATE_ID_GUID, cuit),
+    ])),
     f(ID_ALIAS_CBU, serialize([
       f(MERCHANT_INFORMATION_TEMPLATE_ID_GUID, alias),
     ])),
