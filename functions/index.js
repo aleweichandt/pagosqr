@@ -9,6 +9,7 @@ const functions = require('firebase-functions');
 const express = require('express');
 const cors = require('cors');
 const QRCode = require('qrcode');
+const generator = require('./qrGenerator');
 
 const app = express();
 
@@ -20,7 +21,8 @@ app.use(cors({ origin: true }));
 
 // build multiple CRUD interfaces:
 app.post('/test', (req, res) => {
-  QRCode.toString('http://www.google.com', (err, string) => {
+  QRCode.toString(generator({name:"nombre",alias:"fer.nando",cuit:"20320232644",city:"quilmes"}),
+  { type: 'svg', errorCorrectionLevel: 'L' }, (err, string) => {
     if (err) {
       res.status(500).send(err);
     } else {
