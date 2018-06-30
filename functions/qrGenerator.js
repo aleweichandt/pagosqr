@@ -16,8 +16,8 @@ const PAYLOAD_FORMAT_EMV_QRCPS_MERCHANT_PRESENTED_MODE = '01'
 const POI_METHOD_STATIC = '11'
 const MERCHANT_INFORMATION_TEMPLATE_ID_GUID = '00'
 const GUID_MERCHAN_BANK = 'numerodecliente'
-const TRANSACTION_CURRENCY_THB = '032'
-const COUNTRY_CODE_TH = 'AR'
+const TRANSACTION_CURRENCY = '032'
+const COUNTRY_CODE = 'AR'
 
 const f = (id, value) => ( [ id, ('00' + value.length).slice(-2), value ].join(''));
   
@@ -32,10 +32,12 @@ const generatePayload = ({name,cuit,alias,city}) => {
     f(ID_MERCHANT_INFORMATION_BOT, serialize([
       f(MERCHANT_INFORMATION_TEMPLATE_ID_GUID, GUID_MERCHAN_BANK),
     ])),
-    f(ID_COUNTRY_CODE, COUNTRY_CODE_TH),
     f(ID_CUIT, cuit),
-    f(ID_ALIAS_CBU, alias),
-    f(ID_TRANSACTION_CURRENCY, TRANSACTION_CURRENCY_THB),
+    f(ID_ALIAS_CBU, serialize([
+      f(MERCHANT_INFORMATION_TEMPLATE_ID_GUID, alias),
+    ])),
+    f(ID_TRANSACTION_CURRENCY, TRANSACTION_CURRENCY),
+    f(ID_COUNTRY_CODE, COUNTRY_CODE),
     f(ID_NAME, name),
     f(ID_CITY, city),
   ]
