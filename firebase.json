@@ -13,6 +13,10 @@
     ],
     "rewrites": [
       {
+        "source": "/test",
+        "function": "qr"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

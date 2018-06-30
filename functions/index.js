@@ -20,7 +20,7 @@ app.use(cors({ origin: true }));
 // app.use(myMiddleware);
 
 // build multiple CRUD interfaces:
-app.post('/test', (req, res) => {
+app.get('/test', (req, res) => {
   QRCode.toString(generator({name:"nombre",alias:"fer.nando",cuit:"20320232644",city:"quilmes"}),
   { type: 'svg', errorCorrectionLevel: 'L' }, (err, string) => {
     if (err) {
