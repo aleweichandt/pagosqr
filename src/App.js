@@ -1,7 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+
 import apiCall from './api';
+
+import Theme from './Theme';
 import Header from './component/Header';
 import QRCode from './component/QRCode';
 import QRForm from './component/QRForm';
@@ -25,12 +27,12 @@ class App extends React.PureComponent {
   }
   render() {
     return (
-      <div className="App">
+      <MuiThemeProvider theme={Theme}>
         <Header>Generá tu código de pagosQR</Header>
         <QRForm/>
         <QRCode payload={this.state.qrData} title="Fernando Basello"/>
         <Footer/>
-      </div>
+      </MuiThemeProvider>
     );
   }
 }
