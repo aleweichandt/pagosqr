@@ -10,6 +10,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4",
+    "react-share": "^2.2.0",
     "save-svg-as-png": "^1.4.5"
   },
   "scripts": {
