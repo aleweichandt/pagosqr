@@ -67,9 +67,10 @@ class QRCode extends React.PureComponent {
         >
           <CardContent>
             <img src={src} alt='QR Code' />
+            {title ? 
             <Typography gutterBottom component="p">
               {title}
-            </Typography>
+            </Typography> : undefined}
           </CardContent>
         </Fade>
         <CardActions>

@@ -17,9 +17,6 @@ const Footer = (props) => {
   return (
     <div>
       <Paper className={classes.root} elevation={1}>
-        <Typography variant="headline" component="h3">
-          Footer.
-        </Typography>
         <Typography component="p">
           made by Mates Inc.
         </Typography>
