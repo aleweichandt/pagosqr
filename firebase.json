@@ -13,8 +13,8 @@
     ],
     "rewrites": [
       {
-        "source": "/test",
-        "function": "qr"
+        "source": "/api/**",
+        "function": "api"
       },
       {
         "source": "**",
