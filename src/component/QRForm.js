@@ -69,14 +69,19 @@ class QRForm extends React.PureComponent {
     return false;
   }
 
-  validateAlias() {
+  validateAliasOrCbu() {
     const { onError } = this.props;
-    const { alias } = this.state;
-    const valid = aliasPattern.test(alias);
+    const valid = this.validateAlias() || this.validateCbu();
     if(!valid) {
       this.setState({ aliasError: true });
       onError(Error('alias invalido'));
     }
+    return valid;
+  }
+
+  validateAlias() {
+    const { alias } = this.state;
+    const valid = aliasPattern.test(alias);
     return valid;
   }
 
@@ -108,7 +113,7 @@ class QRForm extends React.PureComponent {
 
   onSummit(event) {
     event.preventDefault();
-    return this.validCuit() && this.validateAlias() && this.generate();
+    return this.validCuit() && this.validateAliasOrCbu() && this.generate();
   }
 
   generate() {
@@ -117,8 +122,8 @@ class QRForm extends React.PureComponent {
     const options = {
       type: 'commit',
     } 
-    const queryPath = 'api/generate';
-    // const queryPath = 'http://localhost:5000/api/generate';
+    // const queryPath = 'api/generate';
+    const queryPath = 'http://localhost:5000/api/generate';
     const body = { name, cuit, alias, city: 'CABA' };
     apiCall(queryPath, body, options)
       .then((res) => onComplete(res))
@@ -161,7 +166,7 @@ class QRForm extends React.PureComponent {
             />
             <TextField
               id="alias"
-              label="AliasCBU"
+              label="CBU/AliasCBU"
               required
               error={aliasError}
               className={classes.textField}
