@@ -2,7 +2,10 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import apiCall from './api';
-import QRCode from './QRCode';
+import Header from './component/Header';
+import QRCode from './component/QRCode';
+import QRForm from './component/QRForm';
+import Footer from './component/Footer';
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -10,24 +13,23 @@ class App extends React.PureComponent {
     this.state = {qrData: ''};
   }
   componentDidMount() {
-    apiCall('https://pagosqr-web.firebaseapp.com/test').then((res) => {
-      console.log(res.response);
-      this.setState({qrData: res.response});
-    });
+    apiCall('api/test')
+    // apiCall('http://localhost:5000/api/test')
+      .then((res) => {
+        console.log(res.response);
+        this.setState({qrData: res.response});
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <div className='qrcode-container'>
-          <QRCode payload={this.state.qrData} />
-        </div>
+        <Header>Generá tu código de pagosQR</Header>
+        <QRForm/>
+        <QRCode payload={this.state.qrData} title="Fernando Basello"/>
+        <Footer/>
       </div>
     );
   }
