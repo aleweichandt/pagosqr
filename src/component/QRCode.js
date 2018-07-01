@@ -1,29 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Fade from '@material-ui/core/Fade';
+import Slide from '@material-ui/core/Slide';
 
 const styles = {
   card: {
-    display: 'inline-block',
-    maxWidth: '345px',
     maxHeight: '200px',
-    margin: 20,
+    maxWidth: '200px',
+
   },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
-  qr: {
-    height: '200px',
-  }
 };
+
+const Transition = (props) => (
+  <Slide direction="up" {...props}/>
+);
 
 class QRCode extends React.PureComponent {
   constructor(props)  {
@@ -46,39 +46,30 @@ class QRCode extends React.PureComponent {
     return this.renderContent(src);
   }
   renderContent (src) {
-    const { classes, title, payload } = this.props;
+    const { classes, title, payload, onShare, onDismiss } = this.props;
+    const open = payload !== undefined;
     return (
-      <Card className={classes.card}>
-        <Fade
-          in={payload === undefined}
-          style={{
-            transitionDelay: payload === undefined ? '800ms' : '0ms',
-          }}
-          unmountOnExit
-        >
-          <CircularProgress />
-        </Fade>
-        <Fade
-          in={payload !== undefined}
-          style={{
-            transitionDelay: payload !== undefined ? '800ms' : '0ms',
-          }}
-          unmountOnExit
-        >
-          <CardContent>
-            <img src={src} alt='QR Code' />
-            {title ? 
-            <Typography gutterBottom component="p">
-              {title}
-            </Typography> : undefined}
-          </CardContent>
-        </Fade>
-        <CardActions>
-          <Button size="small" color="primary">
-            Share
+      <Dialog
+        open={open}
+        onClose={onDismiss}
+        TransitionComponent={Transition}
+        keepMounted
+      >
+        <DialogTitle>
+          Codigo de pagosQR
+        </DialogTitle>
+        <DialogContent>
+          <img src={src}/>
+        </DialogContent>
+        <DialogActions>
+          <Button size="small" color="primary" onClick={onShare}>
+            Compartir
           </Button>
-        </CardActions>
-      </Card>
+          <Button size="small" color="secondary" onClick={onDismiss}>
+            Cerrar
+          </Button>
+        </DialogActions>
+      </Dialog>
     );
   }
 };
@@ -86,10 +77,14 @@ QRCode.propTypes = {
   classes: PropTypes.object.isRequired,
   payload: PropTypes.string,
   title: PropTypes.string,
+  onShare: PropTypes.func,
+  onDismiss: PropTypes.func,
 };
 QRCode.defaultProps = {
   payload: undefined,
   title: undefined,
+  onShare: () => {},
+  onDismiss: () => {},
 };
 
 export default withStyles(styles)(QRCode);

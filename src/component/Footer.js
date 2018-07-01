@@ -9,7 +9,16 @@ const styles = theme => ({
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
+    position: 'fixed',
+    left: 0,
+    bottom: 0,
+    width: '100%',
   },
+  made: {
+    position: 'fixed',
+    right: 10,
+    bottom: 10,
+  }
 });
 
 const Footer = (props) => {
@@ -17,7 +26,7 @@ const Footer = (props) => {
   return (
     <div>
       <Paper className={classes.root} elevation={1}>
-        <Typography component="p">
+        <Typography component="p" className={classes.made}>
           made by Mates Inc.
         </Typography>
       </Paper>

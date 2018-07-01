@@ -9,20 +9,25 @@ import apiCall from '../api';
 
 
 const styles = theme => ({
-  root: {
+  form: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
-  },
-  container: {
+    margin: 20,
     display: 'flex',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
   },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 200,
   },
+  button: {
+    marginTop: theme.spacing.unit * 2,
+    display: 'flex',
+    flex: 1,
+    maxWidth: 200,
+  }
 });
 
 class QRForm extends React.PureComponent {
@@ -46,7 +51,9 @@ class QRForm extends React.PureComponent {
       type: 'commit',
 
     } 
-    apiCall('api/generate',
+    const queryPath = 'api/generate';
+    // const queryPath = 'http://localhost:5000/api/generate';
+    apiCall(queryPath,
             {name, cuit, alias, city:'CABA'}, 
             options)
       .then((res) => {
@@ -58,46 +65,56 @@ class QRForm extends React.PureComponent {
   }
 
   render() {
-    const { classes, onComplete, onError } = this.props;
+    const { classes } = this.props;
     return (
-      <div>
-        <Paper className={classes.root} elevation={1}>
-        <form  onSubmit={(event) => {this.onSummit(event)}} className={classes.container}>
-        <Typography component="p">
-            Datos
-        </Typography>
-        <TextField
-            id="name"
-            label="Nombre"
-            className={classes.textField}
-            value={this.state.name}
-            onChange={this.handleChange('name')}
-            margin="normal"
-          />
-          <TextField
-            id="cuit"
-            label="CUIT"
-            className={classes.textField}
-            value={this.state.cuit}
-            onChange={this.handleChange('cuit')}
-            margin="normal"
-            type="number"
-          />
-          <TextField
-            id="alias"
-            label="AliasCBU"
-            className={classes.textField}
-            value={this.state.alias}
-            onChange={this.handleChange('alias')}
-            margin="normal"
-          />
-
-          <Button size="large" color="primary" type="submit">
+      <React.Fragment>
+        <Paper
+          className={classes.form}
+          elevation={1}
+          component="form"
+          onSubmit={(event) => this.onSummit(event)}
+        >
+          <Typography variant="header" component="h3" gutterBottom>
+              Datos
+          </Typography>
+          <div>
+            <TextField
+              id="name"
+              label="Nombre"
+              className={classes.textField}
+              value={this.state.name}
+              onChange={this.handleChange('name')}
+              margin="normal"
+            />
+            <TextField
+              id="cuit"
+              label="CUIT"
+              className={classes.textField}
+              value={this.state.cuit}
+              onChange={this.handleChange('cuit')}
+              margin="normal"
+              type="number"
+            />
+            <TextField
+              id="alias"
+              label="AliasCBU"
+              className={classes.textField}
+              value={this.state.alias}
+              onChange={this.handleChange('alias')}
+              margin="normal"
+            />
+          </div>
+          <Button 
+            className={classes.button}
+            size="large"
+            color="primary"
+            type="submit"
+            variant="contained"
+          >
             Generar
           </Button>
-        </form>
         </Paper>
-      </div>
+      </React.Fragment>
     );
   } 
 }
