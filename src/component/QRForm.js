@@ -86,7 +86,6 @@ class QRForm extends React.PureComponent {
   }
 
   validateCbu() {
-    const { onError } = this.props;
     const { alias: cbu } = this.state;
     let _cbu = cbu.replace(/[^0-9]/g, ''),
         valid = cbuPattern.test(_cbu);
@@ -122,8 +121,8 @@ class QRForm extends React.PureComponent {
     const options = {
       type: 'commit',
     } 
-    // const queryPath = 'api/generate';
-    const queryPath = 'http://localhost:5000/api/generate';
+    const queryPath = 'api/generate';
+    // const queryPath = 'http://localhost:5000/api/generate';
     const body = { name, cuit, alias, city: 'CABA' };
     apiCall(queryPath, body, options)
       .then((res) => onComplete(res))
