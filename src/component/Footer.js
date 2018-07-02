@@ -46,7 +46,7 @@ const Footer = (props) => {
       <Paper className={classes.root} elevation={1}>
         <div className={classes.buttonContainer}>
           <FacebookShareButton
-              url={"https://pagosqr-web.firebaseapp.com/"}
+              url={"https://pagos-qr.com/"}
               quote={"Genera tu codigo de pagoQR"}
               className={classes.shareButton}>
               <FacebookIcon
@@ -54,7 +54,7 @@ const Footer = (props) => {
                 round />
             </FacebookShareButton>
             <FacebookShareCount
-              url={"https://pagosqr-web.firebaseapp.com/"}
+              url={"https://pagos-qr.com/"}
               className={classes.shareCount}>
               {count => count}
             </FacebookShareCount>
