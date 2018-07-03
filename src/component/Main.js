@@ -1,11 +1,23 @@
 import React from 'react';
 import svg from 'save-svg-as-png';
 // import ReactDOM from 'react-dom'
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
 import ResultDialog from './ResultDialog';
 import QRCode from './QRCode';
 import QRForm from './QRForm';
 import ErrorView from './ErrorView';
+
+const styles = theme => ({
+  description: {
+    ...theme.mixins.gutters(),
+    padding: theme.spacing.unit * 5,
+    paddingBottom: theme.spacing.unit,
+    paddingTop: theme.spacing.unit,
+    ...theme.typography.headline,
+  },
+});
 
 class Main extends React.PureComponent {
   constructor(props) {
@@ -40,9 +52,16 @@ class Main extends React.PureComponent {
   }
   
   render() {
+    const { classes } = this.props;
     const { qrData, error } = this.state;
     return (
       <React.Fragment>
+        <Typography component="p" className={classes.description}>
+          Sumate a la revolución digital y genera tu código para pagos QR dispuesto por el BCRA.
+        </Typography>
+        <Typography component="p" className={classes.description}>
+          Completa la información solicitada y apretá "Generar".
+        </Typography>
         <QRForm
           onError={this.onFormError.bind(this)}
           onComplete={this.onFormComplete.bind(this)}
@@ -64,4 +83,4 @@ class Main extends React.PureComponent {
   }
 };
 
-export default Main;
+export default withStyles(styles)(Main);

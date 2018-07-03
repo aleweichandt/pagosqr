@@ -17,6 +17,7 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
     margin: 20,
+    marginBottom: 100,
     display: 'flex',
     flexDirection: 'column',
   },
