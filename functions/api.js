@@ -25,7 +25,7 @@ api.post('/share', (req, res) => {
 });
 
 api.get('/share/:hash', (req, res) => {
-  const { path: { hash } } = req;
+  const { params: { hash } } = req;
   //TODO decrypt
   const str = hash;
   QRCode.toString(str,
