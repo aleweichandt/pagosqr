@@ -7,11 +7,6 @@ import Main from '../component/Main';
 import Footer from '../component/Footer';
 
 class Home extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {qrData: undefined};
-  }
-  
   render() {
     return (
       <React.Fragment>
