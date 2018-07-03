@@ -1,4 +1,8 @@
 import React from 'react';
+import svg from 'save-svg-as-png';
+// import ReactDOM from 'react-dom'
+
+import ResultDialog from './ResultDialog';
 import QRCode from './QRCode';
 import QRForm from './QRForm';
 import ErrorView from './ErrorView';
@@ -27,21 +31,33 @@ class Main extends React.PureComponent {
   onQRDismiss() {
     this.setState({ qrData: undefined });
   }
+
+  onQRShare() {
+    const { qrData } = this.state;
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(qrData, "image/svg+xml");
+    svg.saveSvgAsPng(doc.lastChild,"codigoQR.png",{scale: 10})
+  }
   
   render() {
+    const { qrData, error } = this.state;
     return (
       <React.Fragment>
         <QRForm
           onError={this.onFormError.bind(this)}
           onComplete={this.onFormComplete.bind(this)}
         />
-        <QRCode
+        <ResultDialog
+          title="Codigo de pagosQR"
+          onShare={this.onQRShare.bind(this)}
           onDismiss={this.onQRDismiss.bind(this)}
-          payload={this.state.qrData}
-        />
+          open={qrData !== undefined}
+        >
+          <QRCode payload={qrData}/>
+        </ResultDialog>
         <ErrorView
           onDismiss={this.onErrorDismiss.bind(this)}
-          error={this.state.error}
+          error={error}
         />
       </React.Fragment>
     );
