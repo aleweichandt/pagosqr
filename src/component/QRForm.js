@@ -59,7 +59,7 @@ class QRForm extends React.PureComponent {
       this.setState({ cuitError: true });
       onError(Error('cuit invalido'));
     }
-    return false;
+    return valid;
   }
 
   validateAliasOrCbu() {
