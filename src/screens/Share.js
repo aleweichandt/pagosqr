@@ -3,6 +3,8 @@ import Header from '../component/Header';
 import Footer from '../component/Footer';
 import QRCode from '../component/QRCode';
 import apiCall from '../api';
+import ResultDialog from '../component/ResultDialog';
+import svg from 'save-svg-as-png';
 
 class Share extends React.PureComponent {
   constructor(props) {
@@ -13,21 +15,35 @@ class Share extends React.PureComponent {
   }
   componentDidMount() {
     const { match: { params: { id }}} = this.props;
-    const queryPath = `api/share/${id}`;
-    // const queryPath = `http://localhost:5000/api/share/${id}`;
+    const queryPath = `${window.location.origin}/api/share/${id}`
+    // const queryPath = "http://localhost:5000/api/share/" + id;
     apiCall(queryPath)
       .then(({response}) =>  this.setState({qrData: response}))
       .catch(err => console.log(err));
   }
+  onQRDismiss() {
+    this.setState({ qrData: undefined });
+  }
+
+  onQRShare() {
+    const { qrData } = this.state;
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(qrData, "image/svg+xml");
+    svg.saveSvgAsPng(doc.lastChild,"codigoQR.png",{scale: 10})
+  }
   render() {
     const { qrData } = this.state;
-    const src = 'data:image/svg+xml,' + qrData;
     return (
       <React.Fragment>
         <Header>Tu código de pagosQR</Header>
-        { qrData ? 
-          <img src={src}/> : undefined }
-        {/* {qrData ? <QRCode payload={this.state.qrData}/> : undefined} */}
+        <ResultDialog
+          title="Codigo de pagosQR"
+          onShare={this.onQRShare.bind(this)}
+          onDismiss={this.onQRDismiss.bind(this)}
+          open={qrData !== undefined}
+        >
+          <QRCode payload={qrData}/>
+        </ResultDialog>
         <Footer/>
       </React.Fragment>
     );

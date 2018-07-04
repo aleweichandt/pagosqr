@@ -17,6 +17,7 @@ api.get('/test', (req, res) => {
 
 api.post('/share', (req, res) => {
   const { body = {} } = req;
+  console.log(body);
   const { name , alias, cuit, city } = body;
   const str = generator({name, alias ,cuit ,city });
   //TODO encrypt
