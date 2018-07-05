@@ -1,8 +1,12 @@
-const express = require('express')
+const express = require('express');
+
 const QRCode = require('qrcode');
 const generator = require('./qrGenerator');
+const intents = require('./intents');
 
-const api = express.Router()
+const api = express.Router();
+
+api.use('/intents', intents)
 
 api.get('/test', (req, res) => {
   QRCode.toString(generator({name:"nombre",alias:"fer.nando",cuit:"20320232644",city:"quilmes"}),
