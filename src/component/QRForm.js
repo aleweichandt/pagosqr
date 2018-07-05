@@ -5,6 +5,9 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import grey from '@material-ui/core/colors/grey';
+
 import apiCall from '../api';
 import {
   validateAliasOrCbu , validateCuit,
@@ -28,10 +31,12 @@ const styles = theme => ({
   },
   button: {
     marginTop: theme.spacing.unit * 2,
-    display: 'flex',
-    flex: 1,
     maxWidth: 200,
-  }
+  },
+  buttonProgress: {
+    color: grey[500],
+    position: 'absolute',
+  },
 });
 
 class QRForm extends React.PureComponent {
@@ -43,6 +48,7 @@ class QRForm extends React.PureComponent {
     cuitError: false,
     alias:'',
     aliasError: false,
+    loading: false,
   };
 
   handleChange = name => event => {
@@ -82,6 +88,7 @@ class QRForm extends React.PureComponent {
   generate() {
     const { onComplete, onError } = this.props;
     const {name, cuit, alias} = this.state;
+    this.setState({ loading: true});
     const options = {
       type: 'commit',
     } 
@@ -90,12 +97,13 @@ class QRForm extends React.PureComponent {
     const body = { name, cuit, alias, city: 'CABA' };
     apiCall(queryPath, body, options)
       .then((res) => onComplete(res))
-      .catch((err) => onError(err));
+      .catch((err) => onError(err))
+      .then(() => this.setState({loading: false}));
   }
 
   render() {
     const { classes } = this.props;
-    const { cuitError, aliasError } = this.state;
+    const { cuitError, aliasError, loading } = this.state;
     return (
       <React.Fragment>
         <Paper
@@ -146,6 +154,7 @@ class QRForm extends React.PureComponent {
             variant="contained"
           >
             Generar
+            {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
           </Button>
         </Paper>
       </React.Fragment>
