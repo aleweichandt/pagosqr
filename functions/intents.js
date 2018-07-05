@@ -10,13 +10,12 @@ const intents = express.Router()
 
 intents.post('/generate', (request, response) => {
   const agent = new WebhookClient({ request, response });
-  agent.handleRequest(intentMap);
   const generarQR = (agent) => {
     const { name , alias, cuit, city } = agent.parameters;
     const str = generator({name, alias ,cuit ,city });
     //TODO encrypt
     const hash = str;
-    
+
     agent.add(new Card({
         title: `Tu código QR`,
         text: `Aca tenes tu código generado.\n Gracias por sumarte a la transformación digital! 💁`,
