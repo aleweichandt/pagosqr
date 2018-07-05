@@ -20,7 +20,7 @@ intents.post('/generate', (request, response) => {
         title: `Tu código QR`,
         text: `Aca tenes tu código generado.\n Gracias por sumarte a la transformación digital! 💁`,
         buttonText: 'Abrir',
-        buttonUrl: `https://pagos-qr/share/${hash}`
+        buttonUrl: `https://pagos-qr.com/share/${hash}`
       })
     );
   }
