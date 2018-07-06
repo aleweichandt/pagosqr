@@ -5,6 +5,7 @@ const ID_POI_METHOD = '01'
 const ID_MERCHANT_INFORMATION_BOT = '43'
 const ID_CUIT = '50'
 const ID_ALIAS_CBU = '51'
+const ID_MERCHANT_CODE = '52'
 const ID_TRANSACTION_CURRENCY = '53'
 const ID_COUNTRY_CODE = '58'
 const ID_NAME = '59'
@@ -18,6 +19,7 @@ const MERCHANT_INFORMATION_TEMPLATE_ID_GUID = '00'
 const GUID_MERCHAN_BANK = 'numerodecliente'
 const TRANSACTION_CURRENCY = '032'
 const COUNTRY_CODE = 'AR'
+const MERCHANT_CODE = '1111'
 
 const f = (id, value) => ( [ id, ('00' + value.length).slice(-2), value ].join(''));
   
@@ -38,6 +40,7 @@ const generatePayload = ({name,cuit,alias,city}) => {
     f(ID_ALIAS_CBU, serialize([
       f(MERCHANT_INFORMATION_TEMPLATE_ID_GUID, alias),
     ])),
+    f(ID_MERCHANT_CODE, MERCHANT_CODE),
     f(ID_TRANSACTION_CURRENCY, TRANSACTION_CURRENCY),
     f(ID_COUNTRY_CODE, COUNTRY_CODE),
     f(ID_NAME, name),
