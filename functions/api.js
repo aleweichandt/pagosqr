@@ -3,6 +3,7 @@ const express = require('express');
 const QRCode = require('qrcode');
 const generator = require('./qrGenerator');
 const intents = require('./intents');
+const { hash, unhash } = require('./crypto');
 
 const api = express.Router();
 
@@ -24,15 +25,13 @@ api.post('/share', (req, res) => {
   console.log(body);
   const { name , alias, cuit, city } = body;
   const str = generator({name, alias ,cuit ,city });
-  //TODO encrypt
-  const hash = str;
-  res.send(hash);
+  const hashStr = hash(str);
+  res.send(hashStr);
 });
 
-api.get('/share/:hash', (req, res) => {
-  const { params: { hash } } = req;
-  //TODO decrypt
-  const str = hash;
+api.get('/share/:hashStr', (req, res) => {
+  const { params: { hashStr } } = req;
+  const str = unhash(hashStr);
   QRCode.toString(str,
   { type: 'svg', errorCorrectionLevel: 'L' }, (err, string) => {
     if (err) {
