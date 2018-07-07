@@ -18,7 +18,7 @@ intents.post('/generate', (request, response) => {
 
     agent.add(new Card({
         title: `Tu código QR`,
-        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/pagosqr-web.appspot.com/o/check.png?alt=media&token=9b2072f2-1755-481c-b0b4-c24fc43c7973',
+        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/pagosqr-web.appspot.com/o/check.png?alt=media&token=d3d2a5ec-802c-479a-9e85-09792d852d32',
         text: `Aca tenes tu código generado.\n Gracias por sumarte a la transformación digital! 💁`,
         buttonText: 'Abrir',
         buttonUrl: `https://pagos-qr.com/share/${hashStr}`
