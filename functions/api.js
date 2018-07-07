@@ -25,13 +25,13 @@ api.post('/share', (req, res) => {
   console.log(body);
   const { name , alias, cuit, city } = body;
   const str = generator({name, alias ,cuit ,city });
-  const hashStr = hash(str);
+  const hashStr = encodeURIComponent(hash(str));
   res.send(hashStr);
 });
 
 api.get('/share/:hashStr', (req, res) => {
   const { params: { hashStr } } = req;
-  const str = unhash(hashStr);
+  const str = unhash(decodeURIComponent(hashStr));
   QRCode.toString(str,
   { type: 'svg', errorCorrectionLevel: 'L' }, (err, string) => {
     if (err) {
