@@ -27,8 +27,8 @@ const serialize = (xs) => (xs.filter((x) => { return x }).join(''));
 const formatCrc = (crcValue) => ('0000' + crcValue.toString(16).toUpperCase()).slice(-4);
 
 const generatePayload = ({ name, cuit: cuitStr, alias: aliasStr, city }) => {
-  const cuit = cuitStr.split(' ').join('');
-  const alias = aliasStr.split(' ').join('');
+  const cuit = cuitStr.toString().split(' ').join('');
+  const alias = aliasStr.toString().split(' ').join('');
   const data = [
     f(ID_PAYLOAD_FORMAT, PAYLOAD_FORMAT_EMV_QRCPS_MERCHANT_PRESENTED_MODE),
     f(ID_POI_METHOD, POI_METHOD_STATIC),
