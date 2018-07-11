@@ -16,10 +16,16 @@ intents.post('/generate', (request, response) => {
     const str = generator({name, alias ,cuit ,city });
     const hashStr = encodeURIComponent(hash(str));
 
+    const cuitUsed = cuitStr.toString().split(' ').join('');
+    const aliasUsed = aliasStr.toString().split(' ').join('');
+    const text = `Aca tenes tu código generado.\n
+                  CBU/AliasCBU: ${aliasUsed}\n
+                  CUIT: ${cuitUsed}\n
+                  Gracias por sumarte a la transformación digital! 💁`;
     agent.add(new Card({
         title: `Tu código QR`,
         imageUrl: 'https://firebasestorage.googleapis.com/v0/b/pagosqr-web.appspot.com/o/check.png?alt=media&token=d3d2a5ec-802c-479a-9e85-09792d852d32',
-        text: `Aca tenes tu código generado.\n Gracias por sumarte a la transformación digital! 💁`,
+        text,
         buttonText: 'Abrir',
         buttonUrl: `https://pagos-qr.com/share/${hashStr}`
       })
