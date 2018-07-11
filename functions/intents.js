@@ -16,8 +16,8 @@ intents.post('/generate', (request, response) => {
     const str = generator({name, alias ,cuit ,city });
     const hashStr = encodeURIComponent(hash(str));
 
-    const cuitUsed = cuitStr.toString().split(' ').join('');
-    const aliasUsed = aliasStr.toString().split(' ').join('');
+    const cuitUsed = cuit.toString().split(' ').join('');
+    const aliasUsed = alias.toString().split(' ').join('');
     const text = `Aca tenes tu código generado.\n
                   CBU/AliasCBU: ${aliasUsed}\n
                   CUIT: ${cuitUsed}\n
