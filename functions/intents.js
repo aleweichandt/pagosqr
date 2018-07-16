@@ -18,9 +18,9 @@ intents.post('/generate', (request, response) => {
 
     const cuitUsed = cuit.toString().split(' ').join('');
     const aliasUsed = alias.toString().split(' ').join('');
-    const text = `Aca tenes tu código generado.\n
-                  CBU/AliasCBU: ${aliasUsed}\n
-                  CUIT: ${cuitUsed}\n
+    const text = `Aca tenes tu código generado. 
+                  CBU/AliasCBU: ${aliasUsed} 
+                  CUIT: ${cuitUsed} 
                   Gracias por sumarte a la transformación digital! 💁`;
     agent.add(new Card({
         title: `Tu código QR`,
