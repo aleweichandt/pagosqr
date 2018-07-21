@@ -18,11 +18,9 @@ const styles = theme => ({
     left: 0,
     bottom: 0,
     width: '100%',
-  },
-  made: {
-    position: 'fixed',
-    right: 10,
-    bottom: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    alignSelf: 'stretch',
   },
   shareButton:{
     cursor: 'pointer',
@@ -36,11 +34,25 @@ const styles = theme => ({
     display: "inline-block",
     marginRight: 30,
     textAlign: 'center'
-  }
+  },
+  rightContainer: {
+    marginLeft: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    verticalAlign: "top",
+    marginRight: 30,
+    justifyContent: 'flex-end',
+    textAlign: 'end',
+  },
+  assistant: {
+  },
+  made: {
+  },
 });
 
 const Footer = (props) => {
   const { classes, onComplete, onError } = props;
+  const ref = "https://assistant.google.com/services/invoke/uid/000000898726d3d9";
   return (
     <div>
       <Paper className={classes.root} elevation={1}>
@@ -59,9 +71,14 @@ const Footer = (props) => {
               {count => count}
             </FacebookShareCount>
         </div>
-        <Typography component="p" className={classes.made}>
-          made by Mates Inc.
-        </Typography>
+        <div className={classes.rightContainer}>
+          <Typography component="a" href={ref} className={classes.assistant}>
+              🅖 Disponible en Google Assistant
+          </Typography>
+          <Typography component="p" className={classes.made}>
+            made by Mates Inc.
+          </Typography>
+        </div>
       </Paper>
     </div>
   );
