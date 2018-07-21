@@ -73,7 +73,7 @@ const Footer = (props) => {
         </div>
         <div className={classes.rightContainer}>
           <Typography component="a" href={ref} className={classes.assistant}>
-              🅖 Disponible en Google Assistant
+              🅖 Disponible para Google Assistant
           </Typography>
           <Typography component="p" className={classes.made}>
             made by Mates Inc.
