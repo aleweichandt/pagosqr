@@ -20,7 +20,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "react-scripts build && firebase deploy --only hosting",
-    "serve": "react-scripts build && firebase serve"
+    "serve": "react-scripts build && firebase emulators:start"
   },
   "browserslist": [
     ">0.2%",
