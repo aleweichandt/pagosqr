@@ -14,7 +14,7 @@ class QRCode extends React.PureComponent {
     }
   }
   getSVG () {
-    const src = 'data:image/svg+xml,' + this.props.payload;
+    const src = `data:image/svg+xml;utf8,${encodeURIComponent(this.props.payload)}`;
     return src;
   }
   downloadSVG() {
