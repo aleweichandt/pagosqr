@@ -29,8 +29,8 @@ api.post('/share', (req, res) => {
   res.send(hashStr);
 });
 
-api.get('/share/:hashStr', (req, res) => {
-  const { params: { hashStr } } = req;
+api.get('/shared', (req, res) => {
+  const { query: { code: hashStr } } = req;
   const str = unhash(decodeURIComponent(hashStr));
   QRCode.toString(str,
   { type: 'svg', errorCorrectionLevel: 'L' }, (err, string) => {

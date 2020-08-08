@@ -14,10 +14,11 @@ class Share extends React.PureComponent {
     }
   }
   componentDidMount() {
-    const { match: { params: { id }}} = this.props;
-    const queryPath = `${window.location.origin}/api/share/${id}`
-    // const queryPath = "http://localhost:5000/api/share/" + id;
-    apiCall(queryPath)
+    const { match: { params: { code }}} = this.props;
+    const body = { code };
+    const queryPath = `${window.location.origin}/api/shared`;
+    // const queryPath = "http://localhost:5000/api/shared/";
+    apiCall(queryPath, body)
       .then(({response}) =>  this.setState({qrData: response}))
       .catch(err => console.log(err));
   }

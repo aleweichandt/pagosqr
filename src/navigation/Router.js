@@ -10,7 +10,7 @@ import PrivacyPolicyScreen from '../screens/PrivacyPolicy';
 const AppRouter = () => (
   <Router>
     <Switch>
-      <Route path="/share/:id" component={ShareScreen}/>
+      <Route path="/share/:code" component={ShareScreen}/>
       <Route path="/privacy_policy" component={PrivacyPolicyScreen}/>
       <Route exact path="/" component={HomeScreen}/>
       <Redirect to="/" />
